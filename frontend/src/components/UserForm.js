@@ -26,7 +26,7 @@ const UserForm = () => {
   
     try {
       // POST request to the Django backend API
-      const response = await axios.post('http://127.0.0.1:8000/api/submit-form/', formData);
+      const response = await axios.post('https://govindhanswal.pythonanywhere.com/api/submit-form/', formData);
       // Handle the success response, display success message, etc.
       console.log(response.data);
     //   Success message
