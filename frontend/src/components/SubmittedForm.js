@@ -5,7 +5,7 @@ const SubmittedForm = () => {
   const [forms, setForms] = useState([]);
 
   useEffect(() => {
-    axios.get('https://govindhanswal.pythonanywhere.com//api/submitted-forms/')
+    axios.get('https://govindhanswal.pythonanywhere.com/api/submitted-forms/')
       .then((response) => {
         setForms((response.data));
         console.log(response.data)
