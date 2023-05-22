@@ -15,7 +15,31 @@ const UserForm = () => {
     event.preventDefault();
   
     // Perform form validation here
+    if (!name || !dob || !email || !phone) {
+      // Handle form validation error, display error message, etc.
+      window.alert('Please fill in all fields');
+      return;
+    }
   
+   
+  
+    // Age validation
+    const currentDate = new Date();
+    const inputDate = new Date(dob);
+    const ageInYears = Math.floor((currentDate - inputDate) / (1000 * 60 * 60 * 24 * 365));
+    if (ageInYears < 18) {
+      // Handle age validation error, display error message, etc.
+      window.alert('You must be at least 18 years old');
+      return;
+    }
+  
+    // Phone number validation
+    const phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(phone)) {
+      // Handle phone number validation error, display error message, etc.
+      window.alert('Please enter a valid 10-digit phone number');
+      return;
+    }
     // Create an object with the form data
     const formData = {
       name,
@@ -30,7 +54,7 @@ const UserForm = () => {
       // Handle the success response, display success message, etc.
       console.log(response.data);
     //   Success message
-      window.alert('Check your mail that you have given')
+      window.alert('Please check your Email inbox for mail')
     // Redirecting it to the page where all the forms list will be displayed
       navigate('/submitted-form')
 
@@ -49,29 +73,30 @@ const UserForm = () => {
   
 
   return (
-    <div>
-      <h2>User Form</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Name:</label>
-          <input type="text" value={name} onChange={(event) => setName(event.target.value)} />
+    <div className="user-form-container"> {/* Add a container class */}
+    <h2 className="form-title">User Form</h2> {/* Add a title class */}
+    <form className="form" onSubmit={handleSubmit}> {/* Add a form class */}
+      <div className="form-field"> {/* Add a field class */}
+        <label className="form-label">Name:</label> {/* Add a label class */}
+        <input className="form-input" type="text" value={name} onChange={(event) => setName(event.target.value)} /> {/* Add an input class */}
+      </div>
+      <div className="form-field">
+        <label className="form-label">Date of Birth:</label>
+        <input className="form-input" type="date" value={dob} onChange={(event) => setDob(event.target.value)} />
+      </div>
+      <div className="form-field">
+        <label className="form-label">Email:</label>
+        <input className="form-input" type="email" value={email} onChange={(event) => setEmail(event.target.value)} />
+      </div>
+      <div className="form-field">
+        <label className="form-label">Phone:</label>
+          <input className="form-input" type="tel" value={phone} onChange={(event) => setPhone(event.target.value)} />
         </div>
-        <div>
-          <label>Date of Birth:</label>
-          <input type="date" value={dob} onChange={(event) => setDob(event.target.value)} />
-        </div>
-        <div>
-          <label>Email:</label>
-          <input type="email" value={email} onChange={(event) => setEmail(event.target.value)} />
-        </div>
-        <div>
-          <label>Phone:</label>
-          <input type="tel" value={phone} onChange={(event) => setPhone(event.target.value)} />
-        </div>
-        <button type="submit">Submit</button>
+        <button className="submit-button" type="submit">Submit</button> {/* Add a button class */}
       </form>
     </div>
   );
 };
+
 
 export default UserForm;
