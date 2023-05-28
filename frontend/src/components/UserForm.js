@@ -10,6 +10,7 @@ const UserForm = () => {
   const [dob, setDob] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -60,8 +61,15 @@ const UserForm = () => {
 
 
     } catch (error) {
-      console.error(error);
-      // Handle the error response, display error message, etc.
+      if (error.response && error.response.data && error.response.data.message) {
+        setError(error.response.data.message);
+    
+
+      } else {
+        setError('An error occurred. Please try again later.');
+      }
+      // console.error(error);
+
     }
   
     // Reset form fields
@@ -75,6 +83,7 @@ const UserForm = () => {
   return (
     <div className="user-form-container"> {/* Add a container class */}
     <h2 className="form-title">User Form</h2> {/* Add a title class */}
+    {error && <div className="error-message">{error}</div>}
     <form className="form" onSubmit={handleSubmit}> {/* Add a form class */}
       <div className="form-field"> {/* Add a field class */}
         <label className="form-label">Name:</label> {/* Add a label class */}
